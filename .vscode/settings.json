@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "env\\Scripts\\python3.exe"
+    "python.pythonPath": "env\\Scripts\\python3.exe",
+    "git.ignoreLimitWarning": true
 }

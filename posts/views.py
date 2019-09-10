@@ -6,38 +6,38 @@ from datetime import datetime
 
 posts = [
     {
-        'name' : 'Forest',
-        'user' : 'Pepito Ruiz',
-        'timestamp' : datetime.now().strftime('%b %dth, %Y - $H %M hrs'),
-        'picture' : 'https://picsum.photos/id/933/200/200'
+        'title' : 'Forest',
+        'user' : {
+            'name' : 'Pepito',
+            'picture' : 'https://picsum.photos/id/933/200/200'
+        },
+        'timestamp' : datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo' : 'https://picsum.photos/id/933/200/200'
     },
     {
-        'name' : 'River',
-        'user' : 'Pepito Ruiz',
-        'timestamp' : datetime.now().strftime('%b %dth, %Y - $H %M hrs'),
-        'picture' : 'https://picsum.photos/id/50/200/200'
+        'title' : 'River',
+        'user' : {
+            'name' : 'Pepito',
+            'picture' : 'https://picsum.photos/id/56/200/200'
+        },
+        'timestamp' : datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo' : 'https://picsum.photos/id/55/200/200'
     },
     {
-        'name' : 'City',
-        'user' : 'Pepito Ruiz',
-        'timestamp' : datetime.now().strftime('%b %dth, %Y - $H %M hrs'),
-        'picture' : 'https://picsum.photos/id/89/200/200'
-    }
+        'title' : 'City',
+        'user' : {
+            'name' : 'Pepito',
+            'picture' : 'https://picsum.photos/id/12/200/200'
+        },
+        'timestamp' : datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo' : 'https://picsum.photos/id/56/200/200'
+    },
 
 ]
 
 
 def list_views(request):
-
-    content = []
-    for post in posts:
-        content.append("""
-            <p><strong>{name}</stron></p>
-            <p><small>{user} - <i> {timestamp}</i></small></p>
-            <figure><img src="{picture}"/></figure>
-        """.format(**post))
-
-    return HttpResponse('<br>'.join(content))
+    return render(request,'feed.html', {'posts' : posts})
 
 
 
