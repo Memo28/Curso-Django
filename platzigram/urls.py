@@ -22,16 +22,22 @@ from posts import views as post_views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from users import views as users_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/',local_views.hello),
-    path('sorted/', local_views.sorted),
-    path('hi/<str:name>/<int:age>/', local_views.hi),
+    path('hello/',local_views.hello, name='hello_word'),
+    path('sorted/', local_views.sorted, name='sort'),
+    path('hi/<str:name>/<int:age>/', local_views.hi, name='hi'),
 
     #POSTS
 
-    path('posts/', post_views.list_views)
+    path('posts/', post_views.list_views, name='feed'),
+
+    #Users
+    path('users/login',users_views.login_view, name='login')
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
