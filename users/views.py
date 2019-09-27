@@ -11,6 +11,9 @@ from django.contrib.auth.models import User
 from users.models import Profile
 
 
+#Exceptions
+from django.db.utils import IntegrityError
+
 def login_view(request):
 
     if request.method == 'POST':
@@ -21,10 +24,8 @@ def login_view(request):
         if user:
             login(request, user)
             return redirect('feed')
-        try:
-            return render(request, 'users/login.html',{'error': 'Invalid username and password'})
-        except:
-            
+        else:
+            return render(request, 'users/login.html',{'error': 'Invalid username and password'})            
 
     return render(request,'users/login.html')
 
@@ -39,10 +40,19 @@ def signup(request):
         username = request.POST['username']
         password = request.POST['password']
         password_confirmation = request.POST['password_confirmation']
+        
+        #Check if the password is the same
         if  password != password_confirmation:
             return render(request, 'users/signup.html', {'error': 'Password confirmation does not match'} )
+
+
+        #Handle exception for username already taken
+        try:
+            user = User.objects.create_user(username=username, password=password)
+        except IntegrityError:
+            return render(request, 'users/signup.html', {'error': 'Username already exist'})
+
         
-        user = User.objects.create_user(username=username, password=password)
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         user.email = request.POST['email']
