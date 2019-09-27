@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile
 
+from users.forms import ProfileForm
+
 
 #Exceptions
 from django.db.utils import IntegrityError
@@ -64,3 +66,25 @@ def signup(request):
         return redirect('login')
 
     return render(request, 'users/signup.html')
+
+
+def update_profile(request):
+    
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+
+            profile.website = data['website']
+            profile.phone_number = data['phone_number']
+            profile.biography = data['biography']
+            profile.picture = data['picture']
+
+            profile.save()
+
+            return redirect('update_profile')
+    else:
+        form = ProfileForm()
+
+    return render( request = request, template_name = 'users/update_profile.html', context= {'profile' : profile, 'user' : request.user, 'form' : form})
