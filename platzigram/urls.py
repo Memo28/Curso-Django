@@ -33,7 +33,8 @@ urlpatterns = [
 
     #POSTS
 
-    path('posts/', post_views.list_views, name='feed'),
+    path('', post_views.list_views, name='feed'),
+    path('posts/new', post_views.create_post, name='create_post'),
 
     #Users
     path('users/login/', users_views.login_view, name='login'),
