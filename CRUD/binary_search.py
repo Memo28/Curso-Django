@@ -12,7 +12,7 @@ def binary_search(data, target, low, high):
     elif target < data[mid]:
         return binary_search(data, target, low, mid-1)
     else:
-        return binary_search(data, target, mid + 1, high)
+        return binary_search(data, target, mid + 1, high)  
 
 if __name__ == '__main__':
     data = [random.randint(0, 100) for i in range(10)]
