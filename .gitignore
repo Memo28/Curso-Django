@@ -2,3 +2,5 @@ env
 posts/migrations
 *.pyc
 *.pyc
+CRUD/venv
+CRUD/pv.egg-info
